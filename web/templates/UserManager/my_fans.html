@@ -1,0 +1,17 @@
+{% extends 'UserManager/base_user.html' %}
+
+{% block content %}
+
+    <ul>
+        {% for fan in fans %}
+            <li>
+                <div>粉丝头像</div>
+                <div>{{ fan.name }}</div>
+                <hr>
+            </li>
+        {% empty %}
+            <li>您目前还没有粉丝哦~</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

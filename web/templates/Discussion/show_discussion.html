@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h2>{{ discussion.title }}</h2>
+    <hr>
+    <p>{{ discussion.content | safe }}</p>  {# 为解决html内容无法显示的问题，添加“safe”，但也使网站易被攻击 #}
+    <hr>
+
+    {% if is_author %}
+        <a href="{% url 'app1:delete_discussion' discussion_id=discussion.id %}">删除</a>
+    {% elif is_login %}
+        <span id="like" star_id="{{ discussion.owner.id }}" fan_id="{{ user.id }}">关注</span> &nbsp
+        <span id="recommend" discussion_id="{{ discussion.id }}" fan_id="{{ user.id }}" >赞</span> &nbsp
+        <span id="mark" discussion_id="{{ discussion.id }}" fan_id="{{ user.id }}" >收藏</span>
+        <br> <span id="AttentionHint"></span>
+    {% endif %}
+
+    <hr>
+    <ul>
+        <div><a href="{% url 'app1:add_discussion_comment' discussion_id=discussion.id %}">添加评论</a></div>
+        {% for comment in comments %}
+            <li>
+                <div>
+                    <span>{{ comment.owner.name }}</span>  &nbsp&nbsp&nbsp&nbsp
+                    <span id="recommend_response" comment_id="{{ comment.id }}" fan_id="{{ user.id }}">点赞</span>
+                    <span id="AttentionHint2"></span>
+                    <br>
+                    <p>{{ comment.content }}</p>
+                </div>
+            </li>
+        {% empty %}
+            <li>该文章目前还没有评论...</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+
+{% block js_code %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'js/my_js/discussion/show_discussion.js' %}"></script>
+{% endblock %}

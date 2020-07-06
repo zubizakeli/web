@@ -1,0 +1,17 @@
+{% extends 'UserManager/base_user.html' %}
+
+{% block content %}
+
+    <ul>
+        {% for idol in idols %}
+            <li>
+                <div>头像</div>
+                <div>{{ idol.name }}</div>
+                <hr>
+            </li>
+        {% empty %}
+            <li>您目前还没有关注任何人哦~</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

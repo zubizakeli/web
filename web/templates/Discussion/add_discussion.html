@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="{% url 'app1:add_discussion' %}" method="post">
+        {% csrf_token %}
+        <span>标题：</span> <input type="text" name="title"> <br>
+        <span>内容：</span> <textarea name="content"></textarea>
+        <button>保存</button>
+    </form>
+{% endblock %}
+
+{% block head %}
+    {{ block.super }}
+    <script type="text/javascript" src="/static/tiny_mce/tiny_mce.js"></script>
+    <script type="text/javascript">
+        tinyMCE.init({
+            "mode": "textareas",
+            "theme": "advanced",
+            "width": 800,
+            "height": 600,
+        })
+    </script>
+{% endblock %}

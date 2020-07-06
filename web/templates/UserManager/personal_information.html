@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="{% url 'app1:personal_information' %}" method="post">
+        {% csrf_token %}
+        <div> <span>username: {{ user.name }}</span> </div>
+        <div> <span>email: </span> <input name="email" id="email" type="text">  </div>
+        <button>提交修改</button>
+    </form>
+{% endblock %}
+
+{% block js_code %}
+    <script type="text/javascript">
+        var email = document.getElementById("email");
+        email.value = "{{ user.mail }}" ;
+    </script>
+{% endblock %}
